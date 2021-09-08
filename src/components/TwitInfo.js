@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 
-function TwitInfo(props){
+function TwitInfo(props){  
   const [editable, setEditable] = useState(false)
 
   const style = {
     border: '1px solid black',
     padding: '8px',
-    margin: '8px'
+    margin: '10px'
   }
 
   const handleToggleEdit = () => {
@@ -52,7 +52,7 @@ function TwitInfo(props){
   }
   return (
     <div style={style}>
-      <div><b>{props.info.name}</b></div>
+      <div><b>{props.info.name}</b> · <span>{props.info.time}</span></div>
       <div>{props.info.text}</div>
       <button onClick={handleToggleEdit}>Edit</button>
       <button onClick={handleRemove}>Remove</button>
