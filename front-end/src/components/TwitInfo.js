@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 
-function TwitInfo(props){  
+function TwitInfo(props){
+  // const month = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+
   const [editable, setEditable] = useState(false)
 
   const style = {

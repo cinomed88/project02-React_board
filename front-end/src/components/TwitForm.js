@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 
 function TwitForm(props) {
-    const month = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-    const now = new Date()
-    const nowString = `${month[now.getMonth()]} ${now.getDate()}, ${now.getFullYear()} at ${now.getHours()}:${now.getMinutes()}`
+    const now = new Date().toISOString().slice(0, 19).replace('T', ' ')
 
     const [twit, setTwit] = useState({
         name: "",
@@ -18,7 +16,7 @@ function TwitForm(props) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        props.addData({name: name, text: text, time: nowString})
+        props.addData({name: name, text: text, time: now})
         setTwit({name: "", text: ""})
     } 
 
