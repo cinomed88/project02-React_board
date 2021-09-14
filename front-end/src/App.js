@@ -11,13 +11,15 @@ function App() {
   const [error, setError] = useState(null)
   const [loading, setLoading] = useState(false)
 
+  // const endPoint = 'http://localhost:3001/projects/02/API/v1/twits'
+
   useEffect(() => {
     const fetchInfo = async () => {
       try {
         setError(null)
         setInfo(null)
         setLoading(true)
-        const res = await axios.get('http://localhost:3001/projects/02/API/v1/getData')
+        const res = await axios.get('http://localhost:3001/projects/02/API/v1/twits')
         setInfo(res.data)
 
         setId(findLastId(res.data))
@@ -40,14 +42,44 @@ function App() {
   }
 
   const addData = (data) => {
+    if (!data) console.log("data - " +data)
     setInfo(information.concat({ id: id+1, ...data }))
     setId(id+1)
+    axios.post('http://localhost:3001/projects/02/API/v1/twits', {
+      id: id+1,
+      name: data.name,
+      time: data.time,
+      text: data.text     
+    })
+    .then(function (response) {
+      console.log(response);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
   }
   const removeData = (id) => {
     setInfo(information.filter(info => info.id !== id))
+    // axios.delete(`http://localhost:3001/projects/02/API/v1/twits/?id=${id}`)
+    // .then(function (response) {
+    //   console.log(response);
+    // })
+    // .catch(function (error) {
+    //   console.log(error);
+    // });)
   }
   const updateData = (id, data) => {
     setInfo(information.map(info => id === info.id ? { ...info, ...data } : info))
+    // axios.put('http://localhost:3001/projects/02/API/v1/twits', {
+    //   id: id,
+    //   ...data
+    // })
+    // .then(function (response) {
+    //   console.log(response);
+    // })
+    // .catch(function (error) {
+    //   console.log(error);
+    // });)
   }
   const handleChange = (e) => {
     setKeyword(e.target.value)
