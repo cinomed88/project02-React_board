@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import './App.css'
 import axios from 'axios'
 import TwitForm from './components/TwitForm'
-import TwitInfoList from './components/TwitInfoList';
+import TwitInfoList from './components/TwitInfoList'
 
 function App() {
   const [id, setId] = useState(0)
@@ -52,39 +52,46 @@ function App() {
       text: data.text     
     })
     .then(function (response) {
-      console.log(response);
+      console.log(response)
     })
     .catch(function (error) {
-      console.log(error);
+      console.log(error)
     });
   }
-  const removeData = (id) => {
-    setInfo(information.filter(info => info.id !== id))
-    // axios.delete(`http://localhost:3001/projects/02/API/v1/twits/?id=${id}`)
-    // .then(function (response) {
-    //   console.log(response);
-    // })
-    // .catch(function (error) {
-    //   console.log(error);
-    // });)
-  }
+
   const updateData = (id, data) => {
     setInfo(information.map(info => id === info.id ? { ...info, ...data } : info))
-    // axios.put('http://localhost:3001/projects/02/API/v1/twits', {
-    //   id: id,
-    //   ...data
-    // })
-    // .then(function (response) {
-    //   console.log(response);
-    // })
-    // .catch(function (error) {
-    //   console.log(error);
-    // });)
+    axios.put('http://localhost:3001/projects/02/API/v1/twits', {
+      id: id,
+      name: data.name,
+      time: data.time,
+      text: data.text     
+    })
+    .then(function (response) {
+      console.log(response)
+    })
+    .catch(function (error) {
+      console.log(error)
+    })
   }
+
+  const removeData = (id) => {
+    setInfo(information.filter(info => info.id !== id))
+    axios.delete(`http://localhost:3001/projects/02/API/v1/twits/`, 
+    {
+      data: id
+    })
+    .then(function (response) {
+      console.log(response)
+    })
+    .catch(function (error) {
+      console.log(error)
+    })
+  }
+
   const handleChange = (e) => {
     setKeyword(e.target.value)
   }
-
 
   if (loading) return <div>Now Loading...</div>
   if (error) return <div>Error!</div>
