@@ -1,4 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react'
+import { makeStyles } from '@material-ui/core/styles';
+import { Button } from "@material-ui/core"
+import Icon from '@material-ui/core/Icon';
 
 function TwitForm(props) {
     const now = new Date().toISOString().slice(0, 19).replace('T', ' ')
@@ -20,6 +23,14 @@ function TwitForm(props) {
         setTwit({name: "", text: ""})
     } 
 
+    const useStyles = makeStyles((theme) => ({
+        button: {
+          margin: theme.spacing(1),
+        },
+      }));
+
+    const classes = useStyles()
+
     return (
         <form onSubmit = {handleSubmit}>
             <input
@@ -34,7 +45,7 @@ function TwitForm(props) {
                 value={text}
                 onChange={onChangeInput}
             />
-            <button type="submit"> Twit </button>
+            <Button variant="contained" color="primary" size="medium" className={classes.button} type="submit">Twit</Button>
         </form>
     );
 }
