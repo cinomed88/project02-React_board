@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react'
+import { Button } from '@material-ui/core'
 
 function TwitInfo(props){
-  // const month = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-
   const [editable, setEditable] = useState(false)
 
   const style = {
@@ -47,8 +46,8 @@ function TwitInfo(props){
             onChange={handleUpdate}
           />
         </div>
-        <button onClick={handleToggleEdit}>Apply</button>
-        <button onClick={handleRemove}>Remove</button>
+        <Button variant="outlined" color="primary" size="small" onClick={handleToggleEdit} >Apply</Button>
+        <Button variant="outlined" color="secondary" size="small" onClick={handleRemove} >Remove</Button>
       </div>
     );
   }
@@ -56,8 +55,8 @@ function TwitInfo(props){
     <div style={style}>
       <div><b>{props.info.name}</b> · <span>{props.info.time}</span></div>
       <div>{props.info.text}</div>
-      <button onClick={handleToggleEdit}>Edit</button>
-      <button onClick={handleRemove}>Remove</button>
+      <Button variant="contained" color="primary" size="small" onClick={handleToggleEdit}>Edit</Button>
+      <Button variant="contained" color="secondary" size="small" onClick={handleRemove}>Remove</Button>
     </div>
   );
 }
