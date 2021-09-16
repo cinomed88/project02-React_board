@@ -3,6 +3,7 @@ import './App.css'
 import axios from 'axios'
 import TwitForm from './components/TwitForm'
 import TwitInfoList from './components/TwitInfoList'
+import { Input } from '@material-ui/core'
 
 function App() {
   const [id, setId] = useState(0)
@@ -11,7 +12,10 @@ function App() {
   const [error, setError] = useState(null)
   const [loading, setLoading] = useState(false)
 
-  // const endPoint = 'http://localhost:3001/projects/02/API/v1/twits'
+  const style = {
+    padding: '1px',
+    margin: '15px'
+  }
 
   useEffect(() => {
     const fetchInfo = async () => {
@@ -104,15 +108,17 @@ function App() {
     )
 
     return (
-      <div>
+      <div style={style}>
         <div>
           <TwitForm addData={addData} />
         </div>
         <p>
-          <input 
-            placeholder="Search by a writer or text" 
+          <Input 
+            placeholder="Search by a Writer or Text" 
             onChange={handleChange}
             value={keyword}
+            margin="dense"
+            fullWidth="true"
           />
         </p>
         <TwitInfoList data={filteredInfo} removeData={removeData} updateData={updateData} />
