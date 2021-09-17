@@ -1,7 +1,6 @@
 const express = require('express')
 const router = express.Router()
 const db = require("./config")
-const url = require('url')
 
 router.get("/twits", (req, res) => {
     console.log("routing to GET")
