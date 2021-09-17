@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react'
-import './App.css'
+import { Input } from '@material-ui/core'
 import axios from 'axios'
+import './App.css'
 import TwitForm from './components/TwitForm'
 import TwitInfoList from './components/TwitInfoList'
-import { Input } from '@material-ui/core'
+
 
 function App() {
   const [id, setId] = useState(0)
@@ -11,20 +12,20 @@ function App() {
   const [keyword, setKeyword] = useState('')
   const [error, setError] = useState(null)
   const [loading, setLoading] = useState(false)
-
+  const endPoint = "https://lucaswgong.com/projects/02/API/v1/twits"
+  // const endPoint = "http://localhost:3001/projects/02/API/v1/twits"
   const style = {
     padding: '1px',
     margin: '15px'
   }
-
+ 
   useEffect(() => {
     const fetchInfo = async () => {
       try {
         setError(null)
         setInfo(null)
         setLoading(true)
-        // const res = await axios.get('http://localhost:3001/projects/02/API/v1/twits')
-        const res = await axios.get('https://lucaswgong.com/projects/02/API/v1/twits')
+        const res = await axios.get(endPoint)
         setInfo(res.data)
 
         setId(findLastId(res.data))
@@ -49,9 +50,8 @@ function App() {
   const addData = (data) => {
     if (!data) console.log("data - " +data)
     setInfo(information.concat({ id: id+1, ...data }))
-    setId(id+1)
-    // axios.post('http://localhost:3001/projects/02/API/v1/twits', {
-    axios.post('https://lucaswgong.com/projects/02/API/v1/twits', {
+    setId(id+1)    
+    axios.post(endPoint, {
       id: id+1,
       name: data.name,
       time: data.time,
@@ -67,8 +67,7 @@ function App() {
 
   const updateData = (id, data) => {
     setInfo(information.map(info => id === info.id ? { ...info, ...data } : info))
-    // axios.put('http://localhost:3001/projects/02/API/v1/twits', {
-    axios.put('https://lucaswgong.com/projects/02/API/v1/twits', {
+    axios.put(endPoint, {
       id: id,
       name: data.name,
       time: data.time,
@@ -84,8 +83,7 @@ function App() {
 
   const removeData = (id) => {
     setInfo(information.filter(info => info.id !== id))
-    // axios.delete('https://lucaswgong.com/projects/02/API/v1/twits', 
-    axios.delete('https://lucaswgong.com/projects/02/API/v1/twits', 
+    axios.delete(endPoint, 
     {
       data: id
     })
@@ -104,7 +102,6 @@ function App() {
   if (loading) return <div>Now Loading...</div>
   if (error) return <div>Error!</div>
   if (information !== null) {
-    console.log(information)
     const filteredInfo = information.filter(
       info => {
         return info.name.indexOf(keyword) !== -1 || info.text.indexOf(keyword) !== -1

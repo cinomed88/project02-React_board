@@ -4,7 +4,7 @@ import { Button, Input } from "@material-ui/core"
 
 
 function TwitForm(props) {
-    const now = new Date().toISOString().slice(0, 19).replace('T', ' ')
+    const now = new Date().toLocaleString('en-CA')
 
     const [twit, setTwit] = useState({
         name: "",
