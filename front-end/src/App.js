@@ -101,34 +101,35 @@ function App() {
 
   if (loading) return <div>Now Loading...</div>
   if (error) return <div>Error!</div>
-  if (information !== null) {
-    const filteredInfo = information.filter(
-      info => {
-        return info.name.indexOf(keyword) !== -1 || info.text.indexOf(keyword) !== -1
-      }
-    )
 
-    return (
-      <div style={style}>
-        <div>
-          <TwitForm addData={addData} />
-        </div>
-        <p>
-          <Input 
-            placeholder="Search by a Writer or Text" 
-            onChange={handleChange}
-            value={keyword}
-            margin="dense"
-            fullWidth="true"
-          />
-        </p>
-        <TwitInfoList data={filteredInfo} removeData={removeData} updateData={updateData} />
+  const filteredInfo = information.filter(
+    info => {
+      return info.name.indexOf(keyword) !== -1 || info.text.indexOf(keyword) !== -1
+    }
+  )
+
+  return (
+    <div style={style}>
+      <div>
+        <TwitForm addData={addData} />
       </div>
-    )
-  } else {
-    return <div>Initial Screen</div>
-  }
-  
+      <p>
+        <Input 
+          placeholder="Search by a Writer or Text" 
+          onChange={handleChange}
+          value={keyword}
+          margin="dense"
+          fullWidth="true"
+        />
+      </p>
+      {
+        filteredInfo
+        ? <TwitInfoList data={filteredInfo} removeData={removeData} updateData={updateData}/>
+        : <p></p>
+      }
+      
+    </div>
+  )
 }
 
 export default App;
