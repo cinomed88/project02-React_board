@@ -23,7 +23,6 @@ function App() {
     const fetchInfo = async () => {
       try {
         setError(null)
-        setInfo(null)
         setLoading(true)
         const res = await axios.get(endPoint)
         setInfo(res.data)
@@ -102,11 +101,14 @@ function App() {
   if (loading) return <div>Now Loading...</div>
   if (error) return <div>Error!</div>
 
-  const filteredInfo = information.filter(
-    info => {
-      return info.name.indexOf(keyword) !== -1 || info.text.indexOf(keyword) !== -1
-    }
-  )
+  let filteredInfo
+  if (information !== null){
+    filteredInfo = information.filter(
+      info => {
+        return info.name.indexOf(keyword) !== -1 || info.text.indexOf(keyword) !== -1
+      }
+    )
+  }
 
   return (
     <div style={style}>
